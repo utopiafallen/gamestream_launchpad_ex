@@ -48,8 +48,9 @@ def reset_launcher_resolution(gamestream_width, gamestream_height, launcher_wind
     #print("Trying to match", launcher_window_name, focused_window)
     if focused_window.startswith(launcher_window_name):
         #print("Matched")
-        current_width = str(win32api.GetSystemMetrics(0))
-        current_height = str(win32api.GetSystemMetrics(1))
+        current_disp_settings = win32api.EnumDisplaySettings(None, win32con.ENUM_CURRENT_SETTINGS)
+        current_width = str(current_disp_settings.PelsWidth)
+        current_height = str(current_disp_settings.PelsHeight)
         if current_width != gamestream_width and current_height != gamestream_height:
             print("Resolutions don't match, changing from", current_width, current_height, "to", gamestream_width, gamestream_height)
             set_resolution(gamestream_width, gamestream_height)
